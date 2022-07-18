@@ -12,14 +12,14 @@
     <!-- 2.创建div容器 -->
     <div id = 'mapCon'></div>
 
-    <!-- 3.创建瓦片地图  tile是瓦片的意思-->
+    <!-- 3.创建矢量地图文档图层 doc是文档的意思-->
     <!-- 
         参数一：显示瓦片的名称，可以为空
         参数二：瓦片地图的实际名称
         参数三：对象类型，IGServer的配置信息
      -->
     <script>
-        const tileLayer = new Zondy.Map.TileLayer('','world',{
+        const docLayer = new Zondy.Map.Doc('','map_area1',{
             // ip地址
             import:'localhost',
             // 端口
@@ -30,7 +30,7 @@
         // 目标：显示的位置
         target:'mapCon',
         // 要加载的图层
-        layers:[tileLayer],
+        layers:[docLayer],
         // 视图：以什么方式显示
         view:new ol.View({
             // 默认中心
