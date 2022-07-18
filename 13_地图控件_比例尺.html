@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 1.引入openlayer -->
+    <script src = './dist/include-openlayers-local.js'></script>
+    <script src = './gaode.js'></script>
+    <style type="text/css">
+        #mapCon {
+            width: 100%;
+            height: 95%;
+            position: absolute;
+        }
+        /* 鼠标位置控件层样式设置 */
+        #mouse-position {
+            float: left;
+            position: absolute;
+            bottom: 5px;
+            width: 200px;
+            height: 20px;
+            /*在地图容器中的层，要设置z-index的值让其显示在地图上层*/
+            z-index: 2000;
+        }
+        /* 鼠标位置信息自定义样式设置 */
+        .custom-mouse-position {
+            color: rgb(0,0,0);
+            font-size: 16px;
+            font-family: "微软雅黑";
+        }
+    </style>
+</head>
+<body>
+    <div id="mapCon">
+        <div id="mouse-position">
+        </div>
+    </div>
+    <script type="text/javascript">
+        //实例化比例尺控件（ScaleLine）
+        var scaleLineControl = new ol.control.ScaleLine({
+            //设置比例尺单位，degrees、imperial、us、nautical、metric（度量单位）
+            units: "metric" 
+        });
+        //实例化鼠标位置控件（MousePosition）
+        var mousePositionControl = new ol.control.MousePosition({
+            //坐标格式
+            coordinateFormat: ol.coordinate.createStringXY(4),
+            //地图投影坐标系（若未设置则输出为默认投影坐标系下的坐标）
+            projection: 'EPSG:4326',
+            //坐标信息显示样式类名，默认是'ol-mouse-position'
+            className: 'custom-mouse-position',
+            //显示鼠标位置信息的目标容器
+            target: document.getElementById('mouse-position'),
+            //未定义坐标的标记
+            undefinedHTML: '&nbsp;'
+        });
+
+        //实例化Map对象加载地图
+        const map = new ol.Map({
+        // 目标：显示的位置
+        target:'mapCon',
+        // 要加载的图层
+        layers:[gaodeMapLayer],
+        // 视图：以什么方式显示
+        view:new ol.View({
+            // 默认中心
+            center:[0, 0],
+            // 坐标系 缺省就是墨卡托坐标系
+            projection:'EPSG:4326',
+            // 默认等级
+            zoom: 4
+        }),
+        //加载控件到地图容器中
+        controls: ol.control.defaults().extend([scaleLineControl])//加载比例尺控件
+    })
+    </script>
+</body>
+</html>
