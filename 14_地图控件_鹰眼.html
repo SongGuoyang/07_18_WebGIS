@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- 1.引入openlayer -->
+    <script src = './dist/include-openlayers-local.js'></script>
+    <script src = './gaode.js'></script>
+    <style type="text/css">
+        #mapCon {
+            width: 100%;
+            height: 95%;
+            position: absolute;
+        }
+        /*=S 自定义鹰眼样式 */
+        .ol-custom-overviewmap, .ol-custom-overviewmap.ol-uncollapsible {
+            bottom: 0;
+            left: auto;
+            /* 右侧显示 */
+            right: 0;
+            /* 顶部显示 */
+            top: auto;
+        }
+        /* 鹰眼控件展开时控件外框的样式 */
+        .ol-custom-overviewmap:not(.ol-collapsed)  {
+            border: 1px solid black;
+        }
+         /* 鹰眼控件中地图容器样式 */
+        .ol-custom-overviewmap .ol-overviewmap-map {
+            border: none;
+            width: 300px;
+        }
+        /* 鹰眼控件中显示当前窗口中主图区域的边框 */
+        .ol-custom-overviewmap .ol-overviewmap-box {
+            border: 2px solid red;
+        }
+        /* 鹰眼控件展开时其控件按钮图标的样式 */
+        .ol-custom-overviewmap:not(.ol-collapsed) button{
+            bottom: auto;
+            left: auto;
+            right: 1px;
+            top: 1px;
+        }
+        /*=E 自定义鹰眼样式 */
+    </style>
+</head>
+<body>
+    <div id="mapCon" > 
+    </div>
+    <script type="text/javascript">
+        ////实例化鹰眼控件（OverviewMap）,最简单的默认样式鹰眼控件
+        // var overviewMapControl = new ol.control.OverviewMap();
+        //实例化鹰眼控件（OverviewMap）,自定义样式的鹰眼控件  
+        var overviewMapControl = new ol.control.OverviewMap({
+            //鹰眼控件样式（see in overviewmap-custom.html to see the custom CSS used）
+            className: 'ol-overviewmap ol-custom-overviewmap', 
+            //鹰眼中加载同坐标系下不同数据源的图层
+            layers: [gaodeMapLayer],
+            //鹰眼控件展开时功能按钮上的标识（网页的JS的字符编码）
+            collapseLabel: '\u00BB',
+            //鹰眼控件折叠时功能按钮上的标识（网页的JS的字符编码）
+            label: '\u00AB',
+            //初始为展开显示方式
+            collapsed: false,
+            view: new ol.View({
+                //地图初始中心点
+                center: [0, 0], 
+                //地图初始显示级别
+                zoom: 9  
+            }),
+        });
+
+        //实例化Map对象加载地图
+        var map = new ol.Map({
+            //地图容器div的ID
+            target: 'mapCon',
+            //地图容器中加载的图层
+            layers: [gaodeMapLayer],
+            //地图视图设置
+            view: new ol.View({
+                //地图初始中心点
+                center: [0, 0], 
+                //地图初始显示级别
+                zoom: 6  
+            }),
+            //加载控件到地图容器中
+            //加载鹰眼控件
+            controls: ol.control.defaults().extend([overviewMapControl])
+        });
+    </script>
+</body>
+</html>
