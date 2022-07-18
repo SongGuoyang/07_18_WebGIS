@@ -11,5 +11,36 @@
 <body>
     <!-- 2.创建div容器 -->
     <div id = 'mapCon'></div>
+
+    <!-- 3.创建瓦片地图 -->
+    <!-- 
+        参数一：显示瓦片的名称，可以为空
+        参数二：瓦片地图的实际名称
+        参数三：对象类型，IGServer的配置信息
+     -->
+    <script>
+        const tileLayer = new Zondy.Map.TileLayer('','world',{
+            // ip地址
+            import:'localhost',
+            // 端口
+            port:6163,
+        })
+    // 4. 创建地图对象
+    const map = new ol.Map({
+        // 目标：显示的位置
+        target:'mapCon',
+        // 要加载的图层
+        layers:[tileLayer],
+        // 视图：以什么方式显示
+        view:new ol.View({
+            // 默认中心
+            center:[0, 0],
+            // 坐标系 缺省就是墨卡托坐标系
+            projection:'EPSG:4326',
+            // 默认等级
+            zoom: 2
+        })
+    })
+    </script>
 </body>
 </html>
