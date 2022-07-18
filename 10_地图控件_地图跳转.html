@@ -7,6 +7,7 @@
     <title>Document</title>
     <!-- 1.引入openlayer -->
     <script src = './dist/include-openlayers-local.js'></script>
+    <script src = './gaode.js'></script>
 </head>
 <body>
     <!-- 2.创建div容器 -->
@@ -20,25 +21,12 @@
      -->
     <script>
         
-        var TiandiMap_vec = new ol.layer.Tile({
-            title: "天地图矢量图层",
-            source: new ol.source.XYZ({
-                url: "http://t0.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}&tk=06b6b0a414b9f91bba4a497337126c2a",//parent.TiandituKey()为天地图密钥,
-                wrapX: false
-            })
-        });
-        var TiandiMap_cva = new ol.layer.Tile({
-            title: "天地图矢量注记图层",
-            source: new ol.source.XYZ({
-                url: "http://t0.tianditu.com/DataServer?T=cva_w&x={x}&y={y}&l={z}&tk=06b6b0a414b9f91bba4a497337126c2a",//parent.TiandituKey()为天地图密钥
-            })
-        });
     // 4. 创建地图对象
     const map = new ol.Map({
         // 目标：显示的位置
         target:'mapCon',
         // 要加载的图层
-        layers:[TiandiMap_vec, TiandiMap_cva],
+        layers:[gaodeMapLayer],
         // 视图：以什么方式显示
         view:new ol.View({
             // 默认中心
@@ -49,6 +37,15 @@
             zoom: 4
         })
     })
+    var zoomslider = new ol.control.ZoomSlider(); 
+        map.addControl(zoomslider);
+    var zoomToExtent = new ol.control.ZoomToExtent({
+            extent: [
+            90, 5,
+            130, 60
+            ]
+        });
+        map.addControl(zoomToExtent);
     </script>
 </body>
 </html>
