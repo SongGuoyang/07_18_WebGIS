@@ -1,4 +1,4 @@
-const Key = '06b6b0a414b9f91bba4a497337126c2a'
+const Key = '936260791b7984958ff84b74b57a1330'
         var TiandiMap_img = new ol.layer.Tile({
             title: "天地图影像图层",
             source: new ol.source.XYZ({
